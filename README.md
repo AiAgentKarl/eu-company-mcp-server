@@ -2,6 +2,8 @@
 
 MCP server providing AI agents with European company data — company search, corporate structures, VAT validation, and EU economic statistics.
 
+[![eu-company-mcp-server MCP server](https://glama.ai/mcp/servers/AiAgentKarl/eu-company-mcp-server/badges/card.svg)](https://glama.ai/mcp/servers/AiAgentKarl/eu-company-mcp-server)
+
 ## 9 Tools in 3 Categories
 
 ### Company Data (GLEIF)
