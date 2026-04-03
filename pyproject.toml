@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eu-company-mcp-server"
-version = "0.1.2"
-description = "MCP server for EU company data — GLEIF company search, VAT validation, Eurostat business statistics"
+version = "0.2.0"
+description = "MCP server for EU company data — GLEIF search, VAT validation, Eurostat statistics, sanctions screening, insolvency search, beneficial ownership"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
 authors = [{ name = "AiAgentKarl" }]
-keywords = ["mcp", "company", "business", "gleif", "lei", "vat", "eurostat", "due-diligence"]
+keywords = ["mcp", "company", "business", "gleif", "lei", "vat", "eurostat", "due-diligence", "sanctions", "aml", "kyc", "insolvency", "beneficial-ownership", "compliance"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",

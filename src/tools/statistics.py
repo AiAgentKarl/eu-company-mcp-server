@@ -150,3 +150,48 @@ def register_statistics_tools(mcp: FastMCP):
             "jahr": year,
             "daten": results,
         }
+
+    @mcp.tool()
+    async def get_industry_statistics(
+        country: str, industry_code: str = "C", year: str = "2021",
+    ) -> dict:
+        """Branchenstatistiken nach NACE-Code (EU-Wirtschaftsklassifikation).
+
+        Gibt Anzahl Unternehmen, Umsatz und Beschäftigte für eine
+        Branche in einem EU-Land zurück. Quelle: Eurostat SBS.
+
+        Häufige NACE-Codes:
+        - C = Verarbeitendes Gewerbe (Manufacturing)
+        - G = Handel (Wholesale/Retail)
+        - F = Baugewerbe (Construction)
+        - J = IT/Kommunikation (Information/Communication)
+        - K = Finanz/Versicherung (Financial Services)
+        - M = Freiberufler/Wissenschaft (Professional/Scientific)
+        - H = Verkehr/Lagerei (Transport/Storage)
+        - I = Gastgewerbe (Accommodation/Food)
+        - L = Immobilien (Real Estate)
+
+        Args:
+            country: ISO-Ländercode (z.B. "DE", "FR", "IT")
+            industry_code: NACE Rev.2 Code (z.B. "C", "G47", "J62")
+            year: Jahr (z.B. "2021")
+        """
+        data = await _eurostat.get_industry_statistics(
+            countries=[country.upper()],
+            nace_code=industry_code,
+            year=year,
+        )
+        results = _parse_eurostat_response(data)
+
+        return {
+            "indikator": "Branchenstatistik (Structural Business Statistics)",
+            "land": country.upper(),
+            "nace_code": industry_code,
+            "jahr": year,
+            "kennzahlen": {
+                "V11110": "Anzahl Unternehmen",
+                "V12110": "Umsatz (Tsd. EUR)",
+                "V16110": "Beschäftigte",
+            },
+            "daten": results,
+        }

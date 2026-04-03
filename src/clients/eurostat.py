@@ -101,5 +101,33 @@ class EurostatClient:
         resp.raise_for_status()
         return resp.json()
 
+    async def get_industry_statistics(
+        self,
+        countries: list[str],
+        nace_code: str = "C",
+        year: str = "2021",
+    ) -> dict:
+        """Branchenstatistiken nach NACE-Code abrufen.
+
+        Gibt Anzahl Unternehmen, Umsatz und Beschäftigung zurück.
+        Dataset: sbs_na_ind_r2 (Structural Business Statistics).
+        """
+        params = {
+            "geo": countries,
+            "nace_r2": nace_code,
+            "indic_sb": ["V11110", "V12110", "V16110"],
+            # V11110 = Anzahl Unternehmen
+            # V12110 = Umsatz (Mio EUR)
+            # V16110 = Beschäftigte
+            "time": year,
+            "lang": "EN",
+        }
+        resp = await self._client.get(
+            f"{self._base}/sbs_na_ind_r2",
+            params=params,
+        )
+        resp.raise_for_status()
+        return resp.json()
+
     async def close(self):
         await self._client.aclose()
